@@ -10,18 +10,14 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="Show" Text="Show" Command="{Binding GetListCommand}" IsEnabled="{Binding IsNotLoading}"/>
     </ContentPage.ToolbarItems>
-    
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <Style x:Key="TitleTextStyle" TargetType="Grid">
-                <Setter Property="FontSize" Value="26"/>
 
-    <Grid ColumnDefinitions="*,*" ColumnSpacing="5" RowDefinitions="*, Auto">
+    <Grid ColumnDefinitions="*,*" ColumnSpacing="5" RowDefinitions="*, Auto" BackgroundColor="#1f0675" >
+
         <RefreshView Grid.ColumnSpan="2" Command="{Binding GetListCommand}" IsRefreshing="{Binding IsRefreshing}">
             <CollectionView ItemsSource="{Binding Subs}" SelectionMode="None">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Subscription">
-                        <Frame HeightRequest="100">
+                        <Frame HeightRequest="100" BackgroundColor="{StaticResource Primary}">
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer 
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:SubListViewModel}},
@@ -29,22 +25,25 @@
                                     CommandParameter="{Binding .}"    
                                 />
                             </Frame.GestureRecognizers>
-                            <HorizontalStackLayout Padding="10" Spacing="8">
+                            <HorizontalStackLayout Padding="10" Spacing="8" HeightRequest="120">
                                 <VerticalStackLayout Spacing="6">
-                                    <Label Text="Name:" />
-                                    <Label Text="{Binding Name}"/>
+                                    <Frame HasShadow ="True" HeightRequest="96" BackgroundColor="#6a4ccf">
+                                        <Label Text="{Binding Name}" FontSize="Body" FontFamily="Metropolis Medium" FontAttributes="Bold" TextColor="White" VerticalTextAlignment="Center"/>
+                                    </Frame>
                                 </VerticalStackLayout>
                                 <VerticalStackLayout Spacing="6">
-                                    <Label Text="Price:" />
-                                    <Label Text="{Binding Price}"/>
+                                    <Frame HasShadow ="True" HeightRequest="96" BackgroundColor="#6a4ccf">
+                                        <Label Text="{Binding Price}" FontSize="Body" FontFamily="Metropolis Medium" FontAttributes="Bold" TextColor="White" VerticalTextAlignment="Center"/>
+                                    </Frame>
                                 </VerticalStackLayout>
                                 <VerticalStackLayout Spacing="6">
-                                    <Label Text="Date:" />
-                                    <Label Text="{Binding Date}"/>
+                                    <Frame HasShadow ="True" WidthRequest="100" BackgroundColor="#6a4ccf">
+                                        <Label Text="{Binding Date}" FontFamily="Metropolis Medium" FontAttributes="Bold" TextColor="White" VerticalTextAlignment="Center"/>
+                                    </Frame>
                                 </VerticalStackLayout>
                                 <VerticalStackLayout Spacing="6">
-                                    <Button Text="Delete" Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:SubListViewModel}}, 
-                                        Path= DeleteSubCommand }" CommandParameter="{Binding .}" Margin="5"/>
+                                    <Button Text="X" Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:SubListViewModel}}, 
+                                        Path= DeleteSubCommand }" CommandParameter="{Binding .}" Margin="2" HeightRequest="60" WidthRequest="60" HorizontalOptions="Center" BackgroundColor="#10043b"/>
                                 </VerticalStackLayout>
                             </HorizontalStackLayout>
                         </Frame>
@@ -52,10 +51,10 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </RefreshView>
+        
+        <Button Text="+" FontSize="Large" Clicked="OnAddClicked" VerticalOptions="End" HorizontalOptions="Start" HeightRequest="56" WidthRequest="56" CornerRadius="28" Margin="20" />
 
-        <Button Text="Add" Clicked="OnAddClicked" Grid.Row="1" HorizontalOptions="FillAndExpand"
-                VerticalOptions="End" >
-        </Button>
     </Grid>
+
 </ContentPage>
 

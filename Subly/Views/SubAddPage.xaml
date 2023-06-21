@@ -12,9 +12,8 @@
             <Entry x:Name="Address" Placeholder="Enter address" Text="{Binding Price}"/>
             <Entry x:Name="Date" Placeholder="Enter date" Text="{Binding Date}"/>
             <Line></Line>
-            <Button Text="{Binding AddButtonText}" Grid.Row="1"  IsEnabled="{Binding IsNotLoading}" 
+            <Button Text="{Binding AddButtonText}" Clicked="AddClicked" Grid.Row="1"  IsEnabled="{Binding IsNotLoading}" 
                 Command="{Binding AddSubCommand}" Margin="9"/>
-            <Button Text="Set Timer" Clicked="AddClicked" Grid.Row="2" Margin="9"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
