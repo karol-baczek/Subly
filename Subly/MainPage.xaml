@@ -11,6 +11,10 @@
         <ToolbarItem x:Name="Show" Text="Show" Command="{Binding GetListCommand}" IsEnabled="{Binding IsNotLoading}"/>
     </ContentPage.ToolbarItems>
     
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="TitleTextStyle" TargetType="Grid">
+                <Setter Property="FontSize" Value="26"/>
 
     <Grid ColumnDefinitions="*,*" ColumnSpacing="5" RowDefinitions="*, Auto">
         <RefreshView Grid.ColumnSpan="2" Command="{Binding GetListCommand}" IsRefreshing="{Binding IsRefreshing}">
