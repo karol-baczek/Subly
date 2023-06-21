@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Plugin.LocalNotification;
 using Subly.Model;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,9 @@ namespace Subly.ViewModel
             var sub = new Subscription { Name = Name, Price = Price, Date = Date };
             App.SubRepository.AddSub(sub);
             await Shell.Current.DisplayAlert("Info", App.SubRepository.statusMessage, "Ok");
+
             ClearForm();
+
         }
 
         [RelayCommand]

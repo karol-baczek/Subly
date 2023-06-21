@@ -1,19 +1,22 @@
-﻿namespace Subly;
+﻿using Subly.ViewModel;
+using Subly.Views;
+
+namespace Subly;
 
 public partial class MainPage : ContentPage
 {
-	int count = 0;
 
-	public MainPage()
+	public MainPage(SubListViewModel sub)
 	{
 		InitializeComponent();
+		this.BindingContext = sub;
 	}
 
-	private void OnAddClicked(object sender, EventArgs e)
+	private async void OnAddClicked(object sender, EventArgs e)
 	{
+        await Shell.Current.GoToAsync(nameof(SubAddPage), true);
+    }
 
-		SemanticScreenReader.Announce(AddSubBtn.Text);
-	}
-
+    
 }
 

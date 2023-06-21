@@ -1,34 +1,57 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Subly.MainPage">
+             x:Class="Subly.MainPage"
+             xmlns:model="clr-namespace:Subly.Model"
+             xmlns:viewmodel="clr-namespace:Subly.ViewModel"
+             x:DataType="viewmodel:SubListViewModel"
+             Title="{Binding Title}"
+             >
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="Show" Text="Show" Command="{Binding GetListCommand}" IsEnabled="{Binding IsNotLoading}"/>
+    </ContentPage.ToolbarItems>
+    
 
-    <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
-            <Label
-                Text="Jeabc sond!"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
+    <Grid ColumnDefinitions="*,*" ColumnSpacing="5" RowDefinitions="*, Auto">
+        <RefreshView Grid.ColumnSpan="2" Command="{Binding GetListCommand}" IsRefreshing="{Binding IsRefreshing}">
+            <CollectionView ItemsSource="{Binding Subs}" SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Subscription">
+                        <Frame HeightRequest="100">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:SubListViewModel}},
+                                              Path=ShowSubDetailsCommand}" 
+                                    CommandParameter="{Binding .}"    
+                                />
+                            </Frame.GestureRecognizers>
+                            <HorizontalStackLayout Padding="10" Spacing="8">
+                                <VerticalStackLayout Spacing="6">
+                                    <Label Text="Name:" />
+                                    <Label Text="{Binding Name}"/>
+                                </VerticalStackLayout>
+                                <VerticalStackLayout Spacing="6">
+                                    <Label Text="Price:" />
+                                    <Label Text="{Binding Price}"/>
+                                </VerticalStackLayout>
+                                <VerticalStackLayout Spacing="6">
+                                    <Label Text="Date:" />
+                                    <Label Text="{Binding Date}"/>
+                                </VerticalStackLayout>
+                                <VerticalStackLayout Spacing="6">
+                                    <Button Text="Delete" Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:SubListViewModel}}, 
+                                        Path= DeleteSubCommand }" CommandParameter="{Binding .}" Margin="5"/>
+                                </VerticalStackLayout>
+                            </HorizontalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
 
-            <Label
-                Text="Welcome to .NET Multi-platform App UI"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                FontSize="18"
-                HorizontalOptions="Center" />
-
-            <Button
-                x:Name="AddSubBtn"
-                Text="+"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnAddClicked"
-                HorizontalOptions="Center" />
-
-        </VerticalStackLayout>
-    </ScrollView>
-
+        <Button Text="Add" Clicked="OnAddClicked" Grid.Row="1" HorizontalOptions="FillAndExpand"
+                VerticalOptions="End" >
+        </Button>
+    </Grid>
 </ContentPage>
+

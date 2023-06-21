@@ -56,7 +56,7 @@ namespace Subly.ViewModel
         }
 
         [RelayCommand]
-        async Task DeleteHotel(Subscription subscription)
+        async Task DeleteSub(Subscription subscription)
         {
             if (subscription.Id == 0)
             {
